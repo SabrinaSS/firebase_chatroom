@@ -3,4 +3,4 @@ https://github.com/iamshaunjp/modern-javascript/tree/lesson-146
 
 It was expanded upon with Firebase authication.
 
-The next step would be to restructure the database to next the chats collection within the rooms collection.# firebase_chatroom
+The next step would be to restructure the database to nest the chats collection within the rooms collection 
