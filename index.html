@@ -1,0 +1,183 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <title>Bookclub Chat</title>
+</head>
+<body>
+
+   <!-- NAVBAR -->
+   <nav class="z-depth-0 grey lighten-4">
+    <div class="nav-wrapper container">
+
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class="logged-in" style = "display: none">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
+          </li>
+          <li class="logged-in" style = "display: none">
+            <a href="#" class="grey-text" id="logout">Logout</a>
+          </li>
+          <li class="admin" style = "display: none">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Room</a>
+          </li>
+          <li class="logged-out" style = "display: none">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+          </li>
+          <li class="logged-out" style = "display: none">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+          </li>
+        </span>
+      </ul>
+    </div>
+  </nav>
+
+   <!-- ADMIN ACTIONS -->
+   <form class="center-align admin-actions admin" style="margin: 40px auto; max-width: 300px; display: none;">
+    <input type="email" placeholder="User email" id="admin-email" required />
+    <button class="btn">Make admin</button>
+  </form>
+
+  <!-- SIGN UP MODAL -->
+  <div id="modal-signup" class="modal">
+    <div class="modal-content">
+      <h4>Sign up</h4><br />
+      <form id="signup-form">
+        <div class="input-field">
+          <input type="email" id="signup-email" required />
+          <label for="signup-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="signup-password" required />
+          <label for="signup-password">Choose password</label>
+        </div>
+        <div class = "input-field">
+          <input type = "text" id ="signup-bio" required />
+          <label for ="signup-bio">One Line Bio</label>
+        </div>
+        <button class="btn">Sign up</button>
+        <p class = "error pink-test center-align"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div id="modal-login" class="modal">
+    <div class="modal-content">
+      <h4>Login</h4><br />
+      <form id="login-form">
+        <div class="input-field">
+          <input type="email" id="login-email" required />
+          <label for="login-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="login-password" required />
+          <label for="login-password">Your password</label>
+        </div>
+        <button class="btn">Login</button>
+        <p class = "error pink-test center-align"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ACCOUNT MODAL -->
+  <div id="modal-account" class="modal">
+    <div class="modal-content center-align">
+      <h4>Account details</h4><br />
+      <div class="account-details"></div>
+
+    </div>
+  </div>
+
+  <!-- CREATE ROOM MODAL -->
+  <div id="modal-create" class="modal">
+    <div class="modal-content">
+      <h4>Create Room</h4><br />
+      <form id="create-form">
+        <div class="input-field">
+          <input type="text" id="new-room" required>
+          <label for="new-room">Room Name</label>
+        </div>
+        <button class="btn">Create</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- CONTAINER AND TITLE -->
+  <div class="container my-4 div-chat">
+    <h1 class="my-4 text-center">Bookclub Chat</h1>
+    <h5 class="logged-out my-4 text-center ">Login to see chat rooms</h1>
+    <!-- BUTTONS FOR CHATROOMS -->
+    <div class="chat-rooms logged-in mb-3 text-center">
+      <div class="my-2 ">Choose a chatroom:</div>
+    </div>
+    <!-- CHAT LIST / WINDOWS -->
+    <div class="chat-window logged-in">
+      <ul class="chat-list list-group"></ul>
+    </div>
+    <!-- NEW CHAT FORM -->
+    <form class="new-chat logged-in my-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Your message:</div>
+        </div>
+        <input type="text" id="message" class="form-control" required>
+        <div class="input-group-append">
+          <input type="submit" class="btn" value="send">
+        </div>
+      </div>
+    </form>
+    <!-- UPDATE NAME FORM -->
+    <form class="new-name logged-in my-3">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Update name:</div>
+        </div>
+        <input type="text" id="name" class="form-control" required>
+        <div class="input-group-append">
+          <input type="submit" class="btn" value="update">
+        </div>
+      </div>
+      <div class="update-mssg text-center my-3"></div>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="http://cdn.date-fns.org/v1.9.0/date_fns.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-functions.js"></script>
+
+
+  <script>
+
+    const firebaseConfig = {
+      apiKey: 'AIzaSyA-24Spelj9T0JVH-OmRXt32Fk4b59JN-8',
+      authDomain: "udemy-modernjs-55536.firebaseapp.com",
+      projectId: "udemy-modernjs-55536",
+      storageBucket: "udemy-modernjs-55536.appspot.com",
+      messagingSenderId: "913190398680",
+      appId: "1:913190398680:web:bffa5ffbbc866ca23945ad",
+      measurementId: "G-JBC00MB87Q"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+    const functions = firebase.functions();
+        
+    
+  </script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>
+  <script src="scripts/chat.js"></script>
+  <script src="scripts/ui.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
